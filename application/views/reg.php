@@ -113,7 +113,7 @@
 <select name="city" id="userCity"></select>
 <script src="assets/images/getcity.js"></script><span class="nodisp">请选择您所在的地区</span></td>
     	</tr>
-    	<tr>
+    	<tr id="par">
     		<th>验证码：</th>		
     		<td><input id="f_vcode" name="verifyCode" size="6" class="TEXT" type="text">
 			<span id="change">换另外一个图</span>
@@ -123,14 +123,14 @@
     		<th>&nbsp;</th>		
 			<td>
 			<img id="img_vcode" alt="..." src="captcha/<?php echo $cap['filename']?>" style="border: 2px solid rgb(204, 204, 204);" align="absmiddle">
-			<input type="text" name="hid" id="hid" value="<?php echo $cap['word']?>">
+			<input type="hidden" name="hid" id="hid" value="<?php echo $cap['word']?>">
             <script language="javascript">function _rvi(){document.getElementById('img_vcode').src = '/action/user/captcha?t='+Math.random(1000);}</script>
 			</td>
 		</tr>
     	<tr class="buttons">
     		<th>&nbsp;</th>		
 			<td style="padding: 20px 0pt;">
-    		<input value=" 注册新用户 " class="BUTTON SUBMIT" type="submit">
+    		<input value=" 注册新用户 " class="BUTTON SUBMIT" type="submit" id="sub">
 			</td>
     	</tr>
 	</tbody></table>
@@ -199,13 +199,24 @@ $('#frm_reg').ajaxForm({
 	<div id="OSC_Footer">© 赛斯特(WWW.SYSIT.ORG)</div>
 </div>
 <script>
-	$('#change')
+	$('#sub').click(function(){
+		if($('#yz').html()=='&nbsp;&nbsp;验证码错误'){
+			return false;
+		}
+	});
+	//$('#change').
 	$('#f_vcode').blur(function(){
 		var $num=$('#hid').val();
 		var $inp=$(this).val();
 		// $obj="123";
 		//var $obj={num:$num,inp:$inp};
-		$.post('user/check',{num:$num,inp:$inp},function(data){});
+		$.post('user/check',{num:$num,inp:$inp},function(data){
+			if (data=='success') {
+				$('#yz').html('');
+			}else{
+				$('#change').after('<span id="yz">&nbsp;&nbsp;验证码错误</span>');
+			}
+		});
 	});
 
 </script>

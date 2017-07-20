@@ -51,8 +51,19 @@
 		}
 		public function check(){
 			header('Access-Control-Allow-Origin:*');
+			header('Access-Control-Allow-Headers:X-Requested-With,Content-Type');
+
+			//传json可能用
+			//header('content-type:application/json;charset=utf8');
+			//echo json_encode($result);
 			$num=$this->input->post('num');
-			var_dump($num);
+			$inp=$this->input->post('inp');
+
+			if($num==$inp){
+				echo "success";
+			}else{
+				echo "fail";
+			}
 		}
 		public function login(){
 			$this->load->view('login.php');
@@ -63,19 +74,25 @@
 			$result=$this->user_model->check($email,$pwd);
 			if($result){
 				$data=array(
-					'uid'=>$result->user_id,
-					'uname'=>$result->account,
+					'uid'=>$result->USER_ID,
+					'uname'=>$result->ACCOUNT,
 					'login'=>true
 					);
 				$_SESSION['uid']='';
 				$_SESSION['uname']='';
 				$_SESSION['login']='';
 				$this->session->set_userdata($data);
-				redirect('blog/index');
+				echo "<script>location='".site_url()."/blog/index'</script>";
 			}else{
 				echo "<script>alert('用户名或密码错误')</script>";
 				$this->login();
 			}
+		}
+		public function unlogin(){
+			$_SESSION['uid']='';
+			$_SESSION['uname']='';
+			$_SESSION['login']='';
+			echo "<script>location='".site_url()."/blog/indexul'</script>";
 		}
 	}
 ?>

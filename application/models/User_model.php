@@ -1,5 +1,6 @@
 <?php  
-
+	defined('BASEPATH') OR exit('No direct script access allowed');
+	
 	class User_model extends CI_Model{
 		public function user_insert($email,$name,$pwd,$gender,$province){
 			$data=array(
