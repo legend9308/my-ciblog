@@ -20,6 +20,18 @@
 			$arr['data']=$result;
 			$this->load->view('blog.php',$arr);
 		}
+		public function all(){
+			$bid=$this->uri->segment(3);
+			$result=$this->blog_model->getone($bid);
+			$arr['data']=$result;
+			$this->load->view('all.php',$arr);
+		}
+		public function prev(){
+			$bid=$this->uri->segment(3);
+			$result=$this->blog_model->prev($bid);
+			$arr['data']=$result;
+			$this->load->view('prev.php',$arr);
+		}
 	}
 
 ?>

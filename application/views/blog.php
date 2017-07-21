@@ -124,7 +124,7 @@
 	  			</div>
 				<div class="TextContent" id="blog_content_24027">
 				<?php echo $con."..."?>
-				<div class="fullcontent"><a href="viewPost_comment.htm">阅读全文...</a></div>
+				<div class="fullcontent"><a href="blog/all/<?php echo $v->BLOG_ID?>">阅读全文...</a></div>
 				</div>
 	  			</li>
 		<?php
